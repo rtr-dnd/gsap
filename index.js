@@ -58,6 +58,7 @@ window.onload = function() {
     duration: 0.2,
     ease: "power1.inOut",
     x: 200,
+    scaleX: 0.3
   })
 
   gsap.from(".second-copy", {
