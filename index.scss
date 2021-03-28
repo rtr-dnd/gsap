@@ -6,6 +6,7 @@ $tx-blue: #d3e4f2;
 $rec-color: #c4a4eb;
 $bg-purple: #3c1073;
 $tx-purple: #ebdbff;
+$white: #fff;
 
 body {
   margin: 0;
@@ -14,7 +15,68 @@ body {
   color: $tx-color;
   width: 100vw;
   overflow-x: hidden;
+  cursor: none;
 }
+
+#cursor {
+  position: fixed;
+  background-color: $white;
+  opacity: 0.5;
+  border-radius: 100px;
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+  transform: translateX(-50%) translateY(-50%);
+  pointer-events: none;
+  transition: 0.3s ease width, 0.3s ease height, 0.2s ease opacity;
+
+  #message {
+    position: absolute;
+    color: $bg-blue;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.1s ease opacity;
+    transition-delay: 0.1s;
+  }
+
+  &.active {
+    width: 48px;
+    height: 48px;
+    opacity: 0.8;
+
+    #message {
+      opacity: 1;
+    }
+  }
+
+}
+
+#cursor-follower {
+  position: fixed;
+  border: 1px solid;
+  border-color: $white;
+  opacity: 0.5;
+  border-radius: 100px;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
+  transform: translateX(-50%) translateY(-50%);
+  pointer-events: none;
+  transition: 0.3s ease opacity, 0.3s ease width, 0.3s ease height;
+
+  &.active {
+    opacity: 0;
+    width: 24px;
+    height: 24px;
+  }
+}
+
 
 section {
   height: 100vh;
@@ -100,3 +162,31 @@ section {
   }
 }
 
+.fourth {
+  background-color: $bg-blue;
+  color: $tx-blue;
+  h2 {
+    position: relative;
+    margin-top: 0;
+    font-size: 24px;
+  }
+  
+  a {
+    color: $tx-blue;
+    cursor: none;
+  }
+
+  a.button {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 12px 32px;
+    border-radius: 4px;
+    background-color: $tx-blue;
+    color: $bg-blue;
+    text-decoration: none;
+    transition: 0.3s ease;
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}

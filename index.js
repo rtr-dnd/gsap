@@ -4,7 +4,59 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger)
 console.log('loaded')
 
+let mouseX = 0
+let mouseY = 0
+let followerX = 0
+let followerY = 0
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX
+  mouseY = e.clientY
+})
+
 window.onload = function() {
+  const cursor = document.getElementById("cursor")
+  const follower = document.getElementById("cursor-follower")
+
+  // cursor related
+  gsap.to({}, {
+    repeat: -1,
+    duration: 0.01,
+    // repeatDelay: 0.01,
+    onRepeat: () => {
+      followerX += (mouseX - followerX) / 9
+      followerY += (mouseY - followerY) / 9
+
+      gsap.set(cursor, {
+        css: {
+          left: mouseX,
+          top: mouseY
+        }
+      })
+      gsap.set(follower, {
+        css: {
+          left: followerX,
+          top: followerY
+        }
+      })
+      // console.log('cursor: ' + mouseX + ' ' + mouseY)
+      // console.log('follow: ' + followerX + ' ' + followerY)
+    }
+  })
+
+  Array.from(document.getElementsByClassName("link")).forEach((element) => {
+    element.addEventListener('mouseenter', () => {
+      cursor.classList.add("active")
+      follower.classList.add("active")
+    })
+    element.addEventListener('mouseleave', () => {
+      cursor.classList.remove("active")
+      follower.classList.remove("active")
+    })
+  })
+
+
+  // scroll related
   gsap.from("#fv-title", {
     duration: 1.0,
     ease: "power1.out",
@@ -19,7 +71,6 @@ window.onload = function() {
     y: 20,
     opacity: 0
   })
-
 
   gsap.to("#box", {
     scrollTrigger: {
